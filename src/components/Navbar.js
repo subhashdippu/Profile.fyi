@@ -1,8 +1,11 @@
 import React, { useEffect, useState } from "react";
-import logo from "../logo.png";
+import logo from ".././logo.png";
 import { FaRegUser } from "react-icons/fa";
+import { Link } from "react-router-dom";
+
 const Navbar = () => {
   const [isSticky, setSticky] = useState(false);
+
   useEffect(() => {
     const handleScroll = () => {
       const offset = window.scrollY;
@@ -35,10 +38,10 @@ const Navbar = () => {
               <a href="/menu">All</a>
             </li>
             <li>
-              <a href="/menu">Salad</a>
+              <a>Salad</a>
             </li>
             <li>
-              <a href="/menu">Pizza</a>
+              <a>Pizza</a>
             </li>
           </ul>
         </details>
@@ -48,19 +51,19 @@ const Navbar = () => {
           <summary>Services</summary>
           <ul className="p-2">
             <li>
-              <a href="/menu">Online Order</a>
+              <a>Online Order</a>
             </li>
             <li>
-              <a href="/menu">Table Booking</a>
+              <a>Table Booking</a>
             </li>
             <li>
-              <a href="/menu">Order Tracking</a>
+              <a>Order Tracking</a>
             </li>
           </ul>
         </details>
       </li>
       <li>
-        <a href="/menu">Offers</a>
+        <a>Offers</a>
       </li>
     </>
   );
@@ -69,13 +72,15 @@ const Navbar = () => {
       className={`max-w-screen-2xl container mx-auto fixed top-0 left-0 right-0 transition-all duration-300 ease-in-out`}
     >
       <div
-        className={`navbar ${
-          isSticky ? " bg-base-100 transition-all duration-300 ease-in-out" : ""
+        className={`navbar xl:px-24 ${
+          isSticky
+            ? "shadow-md bg-base-100 transition-all duration-300 ease-in-out"
+            : ""
         }`}
       >
         <div className="navbar-start">
-          <div className="dropdown">
-            <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
+          <div className="dropdown justify-between">
+            <label tabIndex={0} className="btn btn-ghost lg:hidden">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 className="h-5 w-5"
@@ -90,21 +95,23 @@ const Navbar = () => {
                   d="M4 6h16M4 12h8m-8 6h16"
                 />
               </svg>
-            </div>
+            </label>
+            <ul
+              tabIndex={0}
+              className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-64 space-y-3"
+            >
+              {navItems}
+            </ul>
           </div>
-
           <a href="/">
             <img src={logo} alt="" className="h-12 w-13" />
-          </a>
-          <a href="/" className="btn btn-ghost text-xl">
-            FoodApp
           </a>
         </div>
         <div className="navbar-center hidden lg:flex">
           <ul className="menu menu-horizontal px-1">{navItems}</ul>
         </div>
-        <div className="navbar-end">
-          <button className="btn btn-ghost btn-circle">
+        <div className="navbar-end ">
+          <button className="btn btn-ghost btn-circle hidden lg:flex">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               className="h-5 w-5"
@@ -121,11 +128,11 @@ const Navbar = () => {
             </svg>
           </button>
 
-          <div className="dropdown dropdown-end">
-            <div
+          {/* shopping cart */}
+          <Link to="/cart-page">
+            <label
               tabIndex={0}
-              role="button"
-              className="btn btn-ghost btn-circle"
+              className="btn btn-ghost btn-circle  lg:flex items-center justify-center mr-3"
             >
               <div className="indicator">
                 <svg
@@ -142,13 +149,17 @@ const Navbar = () => {
                     d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"
                   />
                 </svg>
-                <span className="badge badge-sm indicator-item">8</span>
+                <span className="badge badge-sm indicator-item">9</span>
               </div>
-            </div>
-          </div>
+            </label>
+          </Link>
+
+          {/* login button */}
+
           <button className="btn flex items-center gap-2 bg-blue rounded-full px-6 bg-green text-white">
             <FaRegUser /> Login
           </button>
+          {/* <Modal /> */}
         </div>
       </div>
     </header>

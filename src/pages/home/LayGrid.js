@@ -8,7 +8,10 @@ const SpecialDishes = () => {
     fetch("/menu.json")
       .then((res) => res.json())
       .then((data) => {
-        const specials = data.filter((item) => item.category === "popular");
+        // Filter items that belong to either "popular" or "dessert"
+        const specials = data.filter(
+          (item) => item.category === "offered" || item.category === "dessert"
+        );
         setRecipes(specials);
       });
   }, []);
