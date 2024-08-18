@@ -3,7 +3,7 @@ import logo from ".././logo.png";
 import { FaRegUser } from "react-icons/fa";
 import { Link } from "react-router-dom";
 
-const Navbar = () => {
+const Navbar = ({ cart }) => {
   const [isSticky, setSticky] = useState(false);
 
   useEffect(() => {
@@ -67,6 +67,10 @@ const Navbar = () => {
       </li>
     </>
   );
+
+  // Calculate the total number of items in the cart
+  const totalItems = cart.reduce((acc, item) => acc + item.quantity, 0);
+
   return (
     <header
       className={`max-w-screen-2xl container mx-auto fixed top-0 left-0 right-0 transition-all duration-300 ease-in-out`}
@@ -110,7 +114,7 @@ const Navbar = () => {
         <div className="navbar-center hidden lg:flex">
           <ul className="menu menu-horizontal px-1">{navItems}</ul>
         </div>
-        <div className="navbar-end ">
+        <div className="navbar-end">
           <button className="btn btn-ghost btn-circle hidden lg:flex">
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -132,7 +136,7 @@ const Navbar = () => {
           <Link to="/cart-page">
             <label
               tabIndex={0}
-              className="btn btn-ghost btn-circle  lg:flex items-center justify-center mr-3"
+              className="btn btn-ghost btn-circle lg:flex items-center justify-center mr-3"
             >
               <div className="indicator">
                 <svg
@@ -149,13 +153,16 @@ const Navbar = () => {
                     d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"
                   />
                 </svg>
-                <span className="badge badge-sm indicator-item">9</span>
+                {totalItems > 0 && (
+                  <span className="badge badge-sm indicator-item">
+                    {totalItems}
+                  </span>
+                )}
               </div>
             </label>
           </Link>
 
           {/* login button */}
-
           <button className="btn flex items-center gap-2 bg-blue rounded-full px-6 bg-green text-white">
             <FaRegUser /> Login
           </button>
